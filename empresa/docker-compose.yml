@@ -1,0 +1,62 @@
+
+services:
+  # Base de datos PostgreSQL
+  db:
+    image: postgres:15
+    container_name: kevaluacion-db
+    restart: always
+    environment:
+      POSTGRES_DB: kevaluaciondb
+      POSTGRES_USER: keval_user
+      POSTGRES_PASSWORD: keval_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - kevaluacion-network
+
+  # Backend API (Spring Boot)
+  backend:
+    build:
+      context: ./Backend/kevaluacion
+      dockerfile: Dockerfile
+    container_name: kevaluacion-api
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/kevaluaciondb
+      SPRING_DATASOURCE_USERNAME: keval_user
+      SPRING_DATASOURCE_PASSWORD: keval_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - kevaluacion-network
+
+  # Frontend (Next.js)
+  frontend:
+    build:
+      context: ./Frontend/project-front
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8080/api
+    container_name: kevaluacion-frontend
+    depends_on:
+      - backend
+    environment:
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    restart: always
+    networks:
+      - kevaluacion-network
+
+volumes:
+  db_data:
+
+networks:
+  kevaluacion-network:
+    driver: bridge
