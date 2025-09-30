@@ -1,4 +1,4 @@
-# 🏢 KEvaluación - Sistema de Gestión de Reservas de Salas
+[](url)# 🏢 KEvaluación - Sistema de Gestión de Reservas de Salas
 
 ## 📋 Descripción
 
@@ -112,7 +112,7 @@ GET    /kevaluacion/users/{id}         # Obtener usuario por ID (ADMIN)
 
 1. **Navegar al directorio del proyecto**
 ```bash
-cd kevaluacion1
+cd empresa
 ```
 
 2. **Ejecutar con un solo comando**
@@ -413,19 +413,6 @@ docker-compose down -v --rmi all
 
 ---
 
-## 📈 Evaluación Técnica - Resumen
-
-| Criterio | Implementado | Puntaje |
-|----------|-------------|---------|
-| **Funcionalidad Backend** | ✅ Completo | 25/25 |
-| **Funcionalidad Frontend** | ✅ Completo | 25/25 |
-| **Pruebas** | ⚠️ Parcial | 10/15 |
-| **Documentación** | ✅ Completo | 10/10 |
-| **Despliegue** | ✅ Completo | 15/15 |
-| **Buenas Prácticas** | ✅ Completo | 10/10 |
-| **TOTAL** | | **95/100** |
-
----
 
 ## 👨‍💻 Autor
 
